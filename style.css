@@ -1,0 +1,17 @@
+.container {
+    padding: 10px;
+}
+
+.header-categories {
+    line-height: 200%;
+    margin-bottom: 35px;
+}
+
+#js-newGameElement {
+    margin-bottom: 35px;
+}
+
+.row {
+    padding: 10px;
+    font-size: 20px;
+}

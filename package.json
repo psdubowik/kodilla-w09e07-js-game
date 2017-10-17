@@ -1,0 +1,24 @@
+{
+    "name": "kodillaFE_week09ex07_js_game",
+    "version": "1.0.0",
+    "description": "Paper-rock-scissors in JS",
+    "main": "index.js",
+    "scripts": {
+      "test": "test"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/psdubowik/kodilla-w09e07-js-game.git"
+    },
+    "keywords": [
+      "js",
+      "game"
+    ],
+    "author": "PSD",
+    "license": "ISC",
+    "bugs": {
+      "url": "https://github.com/psdubowik/kodilla-w09e07-js-game/issues"
+    },
+    "homepage": "https://github.com/psdubowik/kodilla-w09e07-js-game#readme"
+  }
+  
