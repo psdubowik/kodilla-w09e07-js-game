@@ -7,11 +7,32 @@
     margin-bottom: 35px;
 }
 
-#js-newGameElement {
-    margin-bottom: 35px;
-}
-
 .row {
     padding: 10px;
     font-size: 20px;
+}
+
+.fa-heart {
+    color: red;
+    font-size: 20px;
+}
+
+.badge {
+    font-size: 20px;
+}
+
+.btn-lg {
+    margin: 60px;
+}
+
+.btn {
+    margin: 40px 20px;
+    width: 160px;
+    height: 60px;
+}
+
+.col-xs-2, .col-xs-5 {
+    font-size: 20px;
+    line-height: 150%;
+    padding: 6px 0;
 }

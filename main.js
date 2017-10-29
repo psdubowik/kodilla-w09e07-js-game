@@ -1,3 +1,7 @@
+//dodać nową funkcjonalność, np. listę najlepszych wyników  3 graczy przez 5 minut. tylko co to znaczy, e gracz jest najlepszy? zliczamy wygrane, procent wygranych??
+//zagraj jeszcze raz button
+// dodaj tańczący obrazek, albo jakieś fajerwerki, gdy ktoś wygra?
+
 var newGameBtn = document.getElementById("js-newGameButton");
 newGameBtn.addEventListener("click", newGame);
 
@@ -23,14 +27,16 @@ pickSpock.addEventListener("click", function(){
     playerPick("spock");
     });
 
-player = {
+var player = {
     name: "",
-    score: 0
-},
+    score: 0,
+    lives: 0
+};
 
-computer = {
-    score: 0
-}
+var computer = {
+    score: 0,
+    lives: 0
+};
 
 var newGameElem = document.getElementById("js-newGameElement");
 var pickElem = document.getElementById("js-playerPickElement");
@@ -58,19 +64,41 @@ function setGameElements(){
 var playerPointsElem = document.getElementById("js-playerPoints");
 var playerNameElem = document.getElementById("js-playerName");
 var computerPointsElem = document.getElementById("js-computerPoints");
+var computerName = document.getElementById("js-computerName")
+
+function dice_odds(playerRes, computerRes){
+    if (playerRes > computerRes) {
+        return "Dice have been rolled!\nOdds are in your favour, you have " + playerRes + " lives, computer " + computerRes + "!"
+    };
+    return "Dice have been rolled!\nOdds are not in your favour, you have " + playerRes + " lives, computer " + computerRes + "!"
+};
+
+function updateHearts(playerLives, computerLives) {
+    for (i = 0; i < playerLives; i++) {
+        playerNameElem.innerHTML += '<i class="fa fa-heart" aria-hidden="true"></i>';
+    };
+
+    for (i = 0; i < computerLives; i++) {
+        computerName.innerHTML += '<i class="fa fa-heart" aria-hidden="true"></i>';
+    };
+};
 
 function newGame(){
     player.name = prompt("Please enter your name", "Name");
-    if(player.name) {
+    player.lives = Math.floor(Math.random() * 10) + 1;
+    computer.lives = Math.floor(Math.random() * 10) + 1;
+    alert(dice_odds(player.lives, computer.lives));
+
+    if (player.name) {
         player.score = computer.score = 0;
         gameState = "started";
         setGameElements();
         
         playerNameElem.innerHTML = player.name;
+        updateHearts(player.lives, computer.lives);
         setGamePoints();
     }
 };
-
 
 function getComputerPick(){
     var possiblePicks = ["rock","paper","scissors","lizard","spock"];
@@ -95,52 +123,58 @@ function playerPick(playerPick) {
 
 function checkRoundWinner(playerPick, computerPick){
     playerResultElem.innerHTML = computerResultElem.innerHTML = " ";
-    var winnerIs= "player"; //we assume we win
+    var winnerIs= "player";
 
-        if(playerPick == computerPick){
-            winnerIs = "draw"; //remis      
+        if (playerPick === computerPick){
+            winnerIs = "draw";    
         } else if (
-            (computerPick =="scissors" && playerPick == "paper") ||
-            (computerPick =="paper" && playerPick == "rock") ||
-            (computerPick == "rock" && playerPick == "lizard") ||
-            (computerPick == "lizard" && playerPick == "spock") ||
-            (computerPick == "spock" && playerPick == "scissors") ||
-            (computerPick == "scissors" && playerPick == "lizard") ||
-            (computerPick == "lizard" && playerPick == "paper") ||
-            (computerPick == "paper" && playerPick == "spock") ||
-            (computerPick == "spock" && playerPick == "rock") ||
-            (computerPick == "rock" && playerPick == "scissors")){
+            (computerPick ==="scissors" && playerPick === "paper") ||
+            (computerPick ==="paper" && playerPick === "rock") ||
+            (computerPick === "rock" && playerPick === "lizard") ||
+            (computerPick === "lizard" && playerPick === "spock") ||
+            (computerPick === "spock" && playerPick === "scissors") ||
+            (computerPick === "scissors" && playerPick === "lizard") ||
+            (computerPick === "lizard" && playerPick === "paper") ||
+            (computerPick === "paper" && playerPick === "spock") ||
+            (computerPick === "spock" && playerPick === "rock") ||
+            (computerPick === "rock" && playerPick === "scissors")){
         
             winnerIs = "computer";
-        }
+        };
 
-        if(winnerIs == "player") {
+        if (winnerIs === "player") {
             playerResultElem.innerHTML = "Win!";
             player.score++;
-            
-        } else if (winnerIs == "computer") {
+            computer.lives--;
+
+        } else if (winnerIs === "computer") {
             computerResultElem.innerHTML = "Win!";
             computer.score++;
-        }
-}
+            player.lives--;
+        };
+};
 
 function setGamePoints(){
     playerPointsElem.innerHTML = player.score;
     computerPointsElem.innerHTML = computer.score;
-    andTheWinnerIs();
-}
+    playerNameElem.innerHTML = player.name + " ";
+    computerName.innerHTML = "Computer ";
+    updateHearts(player.lives, computer.lives);
+    checkAndShowWinner();
+};
 
-function andTheWinnerIs(){
+function checkAndShowWinner(){
     console.log(player.score);
     console.log(computer.score);
-    if(player.score >= 10){
-        alert(player.name + " earns " + player.score + " points and wins!");
-        gameState = "ended";
-        setGameElements();
-    }
-    if(computer.score >= 10){
-        alert("Computer earns " + computer.score + " points and wins!");
-        gameState = "ended";
-        setGameElements();
-    }
-}
+    if (player.lives == 0  || computer.lives == 0) { 
+        if (player.score > computer.score){
+            alert(player.name + " survives and earns " + player.score + " points!");
+            gameState = "ended";
+            setGameElements();
+        } else {
+            alert("Computer survives and earns " + computer.score + " points!");
+            gameState = "ended";
+            setGameElements();
+        };
+    };
+};
