@@ -1,7 +1,3 @@
-//dodać nową funkcjonalność, np. listę najlepszych wyników  3 graczy przez 5 minut. tylko co to znaczy, e gracz jest najlepszy? zliczamy wygrane, procent wygranych??
-//zagraj jeszcze raz button
-// dodaj tańczący obrazek, albo jakieś fajerwerki, gdy ktoś wygra?
-
 var newGameBtn = document.getElementById("js-newGameButton");
 newGameBtn.addEventListener("click", newGame);
 
@@ -110,7 +106,6 @@ var computerPickElem = document.getElementById("js-computerPick");
 var playerResultElem = document.getElementById("js-playerResult");
 var computerResultElem = document.getElementById("js-computerResult");
 
-
 function playerPick(playerPick) {
     var computerPick = getComputerPick();
 
@@ -128,8 +123,8 @@ function checkRoundWinner(playerPick, computerPick){
         if (playerPick === computerPick){
             winnerIs = "draw";    
         } else if (
-            (computerPick ==="scissors" && playerPick === "paper") ||
-            (computerPick ==="paper" && playerPick === "rock") ||
+            (computerPick === "scissors" && playerPick === "paper") ||
+            (computerPick === "paper" && playerPick === "rock") ||
             (computerPick === "rock" && playerPick === "lizard") ||
             (computerPick === "lizard" && playerPick === "spock") ||
             (computerPick === "spock" && playerPick === "scissors") ||
@@ -144,13 +139,13 @@ function checkRoundWinner(playerPick, computerPick){
 
         if (winnerIs === "player") {
             playerResultElem.innerHTML = "Win!";
-            player.score++;
-            computer.lives--;
+            player.score ++;
+            computer.lives --;
 
         } else if (winnerIs === "computer") {
             computerResultElem.innerHTML = "Win!";
-            computer.score++;
-            player.lives--;
+            computer.score ++;
+            player.lives --;
         };
 };
 
